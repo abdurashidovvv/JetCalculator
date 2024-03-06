@@ -18,16 +18,18 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.viewmodel.compose.viewModel
 import uz.abdurashidov.calculator.presentation.component.CalcButtonComponent
 import uz.abdurashidov.calculator.presentation.component.InputDisplayComponent
 import uz.abdurashidov.calculator.presentation.theme.CalculatorTheme
 import uz.abdurashidov.calculator.presentation.theme.spacing
 import uz.abdurashidov.calculator.utils.ActionType
 import uz.abdurashidov.calculator.utils.Operators
+import uz.abdurashidov.calculator.viewmodel.CalcViewModel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,41 +41,38 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    ScreenCalc()
+                    val viewModel = viewModel<CalcViewModel>()
+                    val state =
+                        viewModel.viewState.collectAsState(initial = CalcViewModel.ViewState("0")).value
+                    CalcScreen(state) {
+                        viewModel.dispatch(it)
+                    }
                 }
             }
         }
     }
 }
 
-
 @Composable
-fun ScreenCalc() {
-    Surface(
-        color = MaterialTheme.colors.background,
-        modifier = Modifier.fillMaxSize()
+private fun CalcScreen(state: CalcViewModel.ViewState, dispatcher: (ActionType) -> Unit) {
+    Box(
+        modifier = Modifier
+            .padding(horizontal = MaterialTheme.spacing.lg, vertical = MaterialTheme.spacing.sm)
     ) {
-        Box(
-            modifier = Modifier.padding(
-                horizontal = MaterialTheme.spacing.lg,
-                vertical = MaterialTheme.spacing.sm
-            )
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .align(Alignment.BottomCenter),
         ) {
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .align(Alignment.BottomCenter)
-            ) {
-                InputDisplayComponent(result = "0")
-                Spacer(modifier = Modifier.height(MaterialTheme.spacing.lg))
-                CalcButtonGridLayout()
-            }
+            InputDisplayComponent(state)
+            Spacer(modifier = Modifier.height(MaterialTheme.spacing.lg))
+            CalcButtonsGridLayout(dispatcher)
         }
     }
 }
 
 @Composable
-fun CalcButtonGridLayout() {
+private fun CalcButtonsGridLayout(dispatcher: (ActionType) -> Unit) {
     val buttons = listOf(
         ActionType.Clear,
         ActionType.Operator(Operators.Power),
@@ -96,6 +95,7 @@ fun CalcButtonGridLayout() {
         ActionType.Delete,
         ActionType.Calculate,
     )
+
     LazyVerticalGrid(
         columns = GridCells.Fixed(4),
         verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.sm),
@@ -107,17 +107,16 @@ fun CalcButtonGridLayout() {
                     color = it.buttonColor,
                     symbol = it.symbol
                 ) {
-
+                    dispatcher(it)
                 }
             }
-        }
-    )
+        })
 }
 
 @Preview(showBackground = true)
 @Composable
 fun ScreenCalcPreview() {
     CalculatorTheme {
-        ScreenCalc()
+        CalcScreen(CalcViewModel.ViewState("0")) { }
     }
 }

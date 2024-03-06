@@ -66,4 +66,6 @@ dependencies {
     implementation 'androidx.compose.material:material:1.6.2'
     //system ui controller
     implementation "com.google.accompanist:accompanist-systemuicontroller:0.20.0"
+    //Lifecycle ViewModel Compose
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-compose:2.5.1'
 }

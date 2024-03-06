@@ -19,11 +19,12 @@ import uz.abdurashidov.calculator.presentation.theme.CalculatorTheme
 import uz.abdurashidov.calculator.presentation.theme.ResultShadowColorBottom
 import uz.abdurashidov.calculator.presentation.theme.ResultShadowColorTop
 import uz.abdurashidov.calculator.presentation.theme.spacing
+import uz.abdurashidov.calculator.viewmodel.CalcViewModel
 
 @Composable
-fun InputDisplayComponent(result: String) {
+internal fun InputDisplayComponent(state: CalcViewModel.ViewState) {
     Box(
-        modifier = Modifier
+        Modifier
             .fillMaxWidth()
             .shadow(
                 color = ResultShadowColorTop,
@@ -34,8 +35,8 @@ fun InputDisplayComponent(result: String) {
             .shadow(
                 color = ResultShadowColorBottom,
                 blurRadius = 15.dp,
-                offsetX = (-6).dp,
-                offsetY = (-6).dp,
+                offsetX = (6).dp,
+                offsetY = (6).dp,
             )
             .clip(MaterialTheme.shapes.large)
             .background(MaterialTheme.colors.onBackground)
@@ -45,7 +46,7 @@ fun InputDisplayComponent(result: String) {
             )
     ) {
         Text(
-            text = result,
+            text = state.result,
             overflow = TextOverflow.Visible,
             maxLines = 1,
             style = MaterialTheme.typography.h1.merge(TextStyle(textAlign = TextAlign.End)),
@@ -53,13 +54,12 @@ fun InputDisplayComponent(result: String) {
         )
     }
 }
-
 @Preview(showBackground = true)
 @Composable
 fun InputDisplayComponentPreview() {
     CalculatorTheme {
-        Box(modifier = Modifier.padding(10.dp)){
-            InputDisplayComponent(result = "5+7=12")
+        Box(modifier = Modifier.padding(10.dp)) {
+            InputDisplayComponent(CalcViewModel.ViewState("5+7=12"))
         }
     }
 }

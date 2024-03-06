@@ -102,7 +102,7 @@ class CalcViewModel : ViewModel() {
         }
     }
 
-    internal class ViewState(result: String)
+    internal class ViewState(val result: String)
     private data class State(
         val num1: String = "",
         val num2: String = "",

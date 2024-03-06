@@ -1,6 +1,7 @@
 package uz.abdurashidov.calculator.presentation.component
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
@@ -19,34 +20,35 @@ import uz.abdurashidov.calculator.presentation.theme.ButtonShadowColorTop
 import uz.abdurashidov.calculator.presentation.theme.CalculatorTheme
 
 @Composable
-fun CalcButtonComponent(
+internal fun CalcButtonComponent(
     modifier: Modifier = Modifier,
     color: Color,
     symbol: String,
-    onClick: () -> Unit
+    onClick: () -> Unit,
 ) {
     Box(
         contentAlignment = Alignment.Center,
         modifier = modifier
             .clip(MaterialTheme.shapes.medium)
             .background(color)
+            .clickable { onClick() }
             .then(modifier)
     ) {
         Box(
             contentAlignment = Alignment.Center,
             modifier = Modifier
-                .fillMaxSize(.8f)
+                .fillMaxSize(fraction = 0.8f)
                 .shadow(
                     color = ButtonShadowColorTop,
                     offsetX = (-4).dp,
                     offsetY = (-4).dp,
-                    blurRadius = 8.dp
+                    blurRadius = 8.dp,
                 )
                 .shadow(
                     color = ButtonShadowColorBottom,
-                    offsetX = (-4).dp,
-                    offsetY = (-4).dp,
-                    blurRadius = 8.dp
+                    offsetX = (4).dp,
+                    offsetY = (4).dp,
+                    blurRadius = 8.dp,
                 )
                 .clip(MaterialTheme.shapes.medium)
                 .background(color)
@@ -55,7 +57,6 @@ fun CalcButtonComponent(
         }
     }
 }
-
 @Preview
 @Composable
 fun CalcButtonComponentPreview() {
