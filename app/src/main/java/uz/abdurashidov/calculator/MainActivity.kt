@@ -26,8 +26,8 @@ import uz.abdurashidov.calculator.presentation.component.CalcButtonComponent
 import uz.abdurashidov.calculator.presentation.component.InputDisplayComponent
 import uz.abdurashidov.calculator.presentation.theme.CalculatorTheme
 import uz.abdurashidov.calculator.presentation.theme.spacing
-import uz.abdurashidov.calculator.presentation.utils.ActionType
-import uz.abdurashidov.calculator.presentation.utils.Operators
+import uz.abdurashidov.calculator.utils.ActionType
+import uz.abdurashidov.calculator.utils.Operators
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

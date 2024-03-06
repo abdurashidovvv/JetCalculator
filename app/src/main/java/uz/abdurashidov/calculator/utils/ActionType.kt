@@ -1,4 +1,4 @@
-package uz.abdurashidov.calculator.presentation.utils
+package uz.abdurashidov.calculator.utils
 
 import androidx.compose.ui.graphics.Color
 import uz.abdurashidov.calculator.presentation.theme.ButtonBlue
