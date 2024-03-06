@@ -14,6 +14,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import uz.abdurashidov.calculator.presentation.theme.ButtonPink
+import uz.abdurashidov.calculator.presentation.theme.ButtonShadowColorBottom
+import uz.abdurashidov.calculator.presentation.theme.ButtonShadowColorTop
 import uz.abdurashidov.calculator.presentation.theme.CalculatorTheme
 
 @Composable
@@ -32,8 +34,20 @@ fun CaclButtonComponent(
     ) {
         Box(
             contentAlignment = Alignment.Center,
-            modifier = modifier
+            modifier = Modifier
                 .fillMaxSize(.8f)
+                .shadow(
+                    color = ButtonShadowColorTop,
+                    offsetX = (-4).dp,
+                    offsetY = (-4).dp,
+                    blurRadius = 8.dp
+                )
+                .shadow(
+                    color = ButtonShadowColorBottom,
+                    offsetX = (-4).dp,
+                    offsetY = (-4).dp,
+                    blurRadius = 8.dp
+                )
                 .clip(MaterialTheme.shapes.medium)
                 .background(color)
         ) {
