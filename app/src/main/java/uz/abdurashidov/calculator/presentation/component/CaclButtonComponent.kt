@@ -19,7 +19,7 @@ import uz.abdurashidov.calculator.presentation.theme.ButtonShadowColorTop
 import uz.abdurashidov.calculator.presentation.theme.CalculatorTheme
 
 @Composable
-fun CaclButtonComponent(
+fun CalcButtonComponent(
     modifier: Modifier = Modifier,
     color: Color,
     symbol: String,
@@ -60,7 +60,7 @@ fun CaclButtonComponent(
 @Composable
 fun CalcButtonComponentPreview() {
     CalculatorTheme {
-        CaclButtonComponent(
+        CalcButtonComponent(
             modifier = Modifier.size(
                 100.dp
             ), color = ButtonPink, symbol = "1"

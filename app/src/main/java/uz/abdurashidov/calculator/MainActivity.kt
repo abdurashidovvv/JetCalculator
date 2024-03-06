@@ -3,23 +3,27 @@ package uz.abdurashidov.calculator
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
-import uz.abdurashidov.calculator.presentation.component.CaclButtonComponent
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Preview
+import uz.abdurashidov.calculator.presentation.component.CalcButtonComponent
 import uz.abdurashidov.calculator.presentation.component.InputDisplayComponent
-import uz.abdurashidov.calculator.presentation.theme.ButtonPink
 import uz.abdurashidov.calculator.presentation.theme.CalculatorTheme
 import uz.abdurashidov.calculator.presentation.theme.spacing
 
@@ -33,7 +37,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-
+                    ScreenCalc()
                 }
             }
         }
@@ -60,7 +64,42 @@ fun ScreenCalc() {
             ) {
                 InputDisplayComponent(result = "0")
                 Spacer(modifier = Modifier.height(MaterialTheme.spacing.lg))
+                CalcButtonGridLayout()
             }
         }
+    }
+}
+
+@Composable
+fun CalcButtonGridLayout() {
+    val buttons = listOf(
+        "7", "8", "9", "÷",
+        "4", "5", "6", "×",
+        "1", "2", "3", "-",
+        "0", ".", "=", "+"
+    )
+    LazyVerticalGrid(
+        columns = GridCells.Fixed(4),
+        verticalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.sm),
+        horizontalArrangement = Arrangement.spacedBy(MaterialTheme.spacing.sm),
+        content = {
+            items(buttons) {
+                CalcButtonComponent(
+                    modifier = Modifier.aspectRatio(1f),
+                    color = Color.Red,
+                    symbol = it
+                ) {
+
+                }
+            }
+        }
+    )
+}
+
+@Preview(showBackground = true)
+@Composable
+fun ScreenCalcPreview() {
+    CalculatorTheme {
+        ScreenCalc()
     }
 }
