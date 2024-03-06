@@ -1,4 +1,4 @@
-package uz.abdurashidov.calculator.ui.theme
+package uz.abdurashidov.calculator.presentation.theme
 
 import androidx.compose.material.MaterialTheme
 import androidx.compose.ui.unit.dp
