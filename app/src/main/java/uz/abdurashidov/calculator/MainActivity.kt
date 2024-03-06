@@ -26,6 +26,8 @@ import uz.abdurashidov.calculator.presentation.component.CalcButtonComponent
 import uz.abdurashidov.calculator.presentation.component.InputDisplayComponent
 import uz.abdurashidov.calculator.presentation.theme.CalculatorTheme
 import uz.abdurashidov.calculator.presentation.theme.spacing
+import uz.abdurashidov.calculator.presentation.utils.ActionType
+import uz.abdurashidov.calculator.presentation.utils.Operators
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -73,10 +75,26 @@ fun ScreenCalc() {
 @Composable
 fun CalcButtonGridLayout() {
     val buttons = listOf(
-        "7", "8", "9", "÷",
-        "4", "5", "6", "×",
-        "1", "2", "3", "-",
-        "0", ".", "=", "+"
+        ActionType.Clear,
+        ActionType.Operator(Operators.Power),
+        ActionType.Percentage,
+        ActionType.Operator(Operators.Divide),
+        ActionType.Number(7),
+        ActionType.Number(8),
+        ActionType.Number(9),
+        ActionType.Operator(Operators.Multiply),
+        ActionType.Number(4),
+        ActionType.Number(5),
+        ActionType.Number(6),
+        ActionType.Operator(Operators.Substract),
+        ActionType.Number(3),
+        ActionType.Number(2),
+        ActionType.Number(1),
+        ActionType.Operator(Operators.Add),
+        ActionType.Number(0),
+        ActionType.Decimal,
+        ActionType.Delete,
+        ActionType.Calculate,
     )
     LazyVerticalGrid(
         columns = GridCells.Fixed(4),
@@ -86,8 +104,8 @@ fun CalcButtonGridLayout() {
             items(buttons) {
                 CalcButtonComponent(
                     modifier = Modifier.aspectRatio(1f),
-                    color = Color.Red,
-                    symbol = it
+                    color = it.buttonColor,
+                    symbol = it.symbol
                 ) {
 
                 }
